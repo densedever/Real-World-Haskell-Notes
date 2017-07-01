@@ -7,15 +7,14 @@ We will introduce ideas in simplified form at first, but Haskell is a deep langu
 Haskell has two major implementations: Hugs for teaching, and GHC for real work. We'll be using GHC.
 
 GHC has three major components:
-`ghc` - an optimizing compiler generating blazing fast code.
-`ghci` - an interactive interpreter and debugger.
-`runghc` - A program for running Haskell programs as scripts, without needing to compile
+ * `ghc` - an optimizing compiler generating blazing fast code.
+ * `ghci` - an interactive interpreter and debugger.
+ * `runghc` - A program for running Haskell programs as scripts, without needing to compile
 them first.
 
 We're assuming you're using at least GHC version 6.8.2, although the latest version as of 2017 is [8.0.2](https://www.haskell.org/ghc/). Using the latest version is recommended for working code.
 
-If you're using Linux or BSD, download pre-built binaries [here](http://www.haskell.org/ghc/
-distribution_packages.html). Appendix A gives detailed install instructions.
+If you're using Linux or BSD, download pre-built binaries [here](http://www.haskell.org/ghc/distribution_packages.html). Appendix A gives detailed install instructions.
 
 ## Getting Started with ghci the Interpreter
 
@@ -90,11 +89,11 @@ Unfortunately, the negative sign (-) is Haskell's only unary operator, and has t
 ghci> 2 + -3
 <interactive>:1:0:
     precedence parsing error
-        cannot mix `(+)' [infixl 6] and prefix `-' [infixl 6] in the same infix
+        cannot mix '(+)' [infixl 6] and prefix '-' [infixl 6] in the same infix
                                                               expression
 ```
 
-Wrap it in () and everything will be ok:
+Wrap it in `()` and everything will be ok:
 
 ```
 ghci> 2 + (-3)
@@ -116,17 +115,17 @@ But not always:
 
 ```
 ghci> 2*-3
-<interactive>:1:1: Not in scope: `*-'
+<interactive>:1:1: Not in scope: '*-'
 ```
 
-Haskell is reading `*-` as a single operator! We can define our own operators in Haskell, but this one isn't defined. Add () to fix the problem:
+Haskell is reading `*-` as a single operator! We can define our own operators in Haskell, but this one isn't defined. Add `()` to fix the problem:
 
 ```
 ghci> 2*(-3)
 -6
 ```
 
-At first, it might seem crappy that we have to put () around negative numbers, but this is a side-effect of being able to invent your own operators, which is so much cooler than the minor annoyance!
+At first, it might seem crappy that we have to put `()` around negative numbers, but this is a side-effect of being able to invent your own operators, which is so much cooler than the minor annoyance!
 
 ## Boolean Logic, Operators, and Value Comparisons
 
@@ -137,7 +136,7 @@ ghci> True && False
 False
 ghci> False || True
 True
-``
+```
 
 Haskell does not consider 0 to be false, or any non-negative number to be true. 
 
@@ -145,11 +144,11 @@ Haskell does not consider 0 to be false, or any non-negative number to be true.
 ghci> True && 1
 <interactive>:1:8:
     No instance for (Num Bool)
-      arising from the literal `1' at <interactive>:1:8
+      arising from the literal '1' at <interactive>:1:8
     Possible fix: add an instance declaration for (Num Bool)
-    In the second argument of `(&&)', namely `1'
-    Basic Interaction: Using ghci as a Calculator | 5In the expression: True && 1
-    In the definition of `it': it = True && 1
+    In the second argument of '(&&)', namely '1'
+    In the expression: True && 1
+    In the definition of 'it': it = True && 1
 ```
 
 This error says that `Bool` is not a member of the `Num` type class. The message is big because it's pointing out the exact place of the problem and some ways we could fix it!
@@ -175,9 +174,71 @@ In the definition of 'it'
 
 Refers to a `ghci` shortcut that we will revisit in a few pages. 
 
-Pg. 6
+Comparison operators are similar to C:
 
+```
+ghci> 1 == 1
+True
+ghci> 2 < 3
+True
+ghci> 4 >= 3.99
+True
+```
 
+except 'not equals', which is `/=`, after math's ≠ symbol.
 
+Where C uses `!` for negation, Haskell uses `not`:
+
+```
+ghci> not True
+False
+```
+
+## Operator Precedence and Associativity
+
+Parentheses allow us to define explicit precedence in expressions, but precedence allows us to write fewer of them.
+
+```
+ghci> 1 + (4 * 4)
+17
+ghci> 1 + 4 * 4
+17
+```
+
+Precedence is numeric from 1-9, highest being applied first. `ghci`'s `:info` command shows us the precedence level:
+
+```
+ghci> :info (+)
+class (Eq a, Show a) => Num a where
+(+) :: a -> a -> a        -- Defined in GHC.Num
+...
+infixl 6 +
+ghci> :info (*)
+class (Eq a, Show a) => Num a where
+...
+(*) :: a -> a -> a        -- Defined in GHC.Num
+...
+infixl 7 *
+```
+
+`infixl 6 +` indicates `(+)` has precedence 6. The other output will be explained later.
+
+`infixl 7 *` indicates `(*)` has precedence 7. Since `(*)` is higher than `(+)`, `1+4*4` is evaluated as `1+(4*4)` and not `(1+4)*4`.
+
+Haskell's operators also associate to the right or left. `(+)` and `(*)` are left-associative, which is what `infixl` means.
+
+`infixr` is right-associative:
+
+```
+ghci> :info (^)
+(^) :: (Num a, Integral b) => a -> b -> a        --defined in GHC.Real
+infixr 8 ^
+```
+
+An operator's precedence and associativity are called *fixity* rules.
+
+## Undefined Values, and Introducing Variables
+
+Page 8
 
 
