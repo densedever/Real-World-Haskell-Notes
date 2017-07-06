@@ -16,6 +16,17 @@ Haskell types can be *strong*, *static*, and *automatically inferred*. Let's tal
 
 ### Strong Types
 
+Strong type systems prevent you from writing things that don't make sense, like using an integer as a function. Haskell compilers will reject passing in strings that require functions.
+
+An expression obeying type rules is *well-typed*, otherwise it's *ill-typed*and causes a *type error*.
+
+Haskell won't coerce one type to another, you have to use conversion functions. C will silently cast ints to doubles in certain expressions, for example, whereas Haskell will simply throw an error.
+
+Strong typing may make it difficult to write certain code, but will save you from nasty and hard-to-spot coercion errors in return. Such an error is what brought down the Challenger, for example.
+
+### Weaker and Stronger Types
+
+*The notion of "strong" typing means that fewer expressions are valid than in "weakly" typed expressions. Perl says `"foo" + 2` equals 2, but Haskell will just throw an error.*
 
 
 ### Static Types
