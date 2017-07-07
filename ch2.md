@@ -31,11 +31,39 @@ Strong typing may make it difficult to write certain code, but will save you fro
 
 ### Static Types
 
+A *static* type system means that types will be checked at compile-time and
+invalid expressions will be treated as errors. Mismatched types will be caught
+before our code is even run:
 
+```
+ghci> True && "false"
+<interactive>:1:8:
+    Couldn't match expected type 'Bool' against inferred type '[Char]'
+    In the second argument of '(&&)', namely '"false"'
+    In the expression: True && "false"
+    In the definition of 'it': it = True && "false"
+```
+
+`"false"` is a string, and so can't be compared with a boolean because `(&&)` requires both its operands to be booleans.
+
+"Duck typing" or "dynamic typing" says that some types look and act enough
+like each other that they can be treated similarly. Haskell provides this
+functionality through *typeclasses* in a safe and robust manner.
+
+Haskell's strong, static type system make entire classes of errors impossible
+up-front. This differs from other languages in that if the code compiles, it's
+much more likely to work correctly (it has fewer trivial bugs).
+
+Dynamically-typed languages need large amounts of type checks, and tests often
+don't cover everything. Refactoring sometimes introduces more errors that
+testing might not pick up.
+
+A Haskell program that compiles will have no type errors, and refactoring is
+just moving code around. In dynamic languages, refactoring is a process of constantly checking values and types and making pieces fit. 
 
 ### Type Inference
 
-
+A Haskell compiler can deduce the types of all data through *type inference*. You can explicitly declare values, but you don't have to.
 
 ## What to Expect from the Type System
 
