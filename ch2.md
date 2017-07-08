@@ -67,7 +67,19 @@ A Haskell compiler can deduce the types of all data through *type inference*. Yo
 
 ## What to Expect from the Type System
 
+The benefits of Haskell's type system will take several chapters to explain, but early on it may seem a chore to deal with.
+
+Why take the effort to line types up if Python or Ruby can take care of it for you?
+
+Static typing makes the language safe, type inference makes it concise. We thus have a strong, expressive language that will be justified throughout the book.
+
+Fixing type errors results in fewer runtime errors, so the debugging you'd normally have to do after compilation is moved up-front.
+
+Haskell's type system serves you. The type systems of other statically-typed languages serve the compiler. A more complete vision of the usefulness of Haskell's type system will be clarified throughout the book.
+
 ## Some Common Basic Types
+
+
 
 ## Function Application
 
