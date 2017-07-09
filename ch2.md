@@ -79,6 +79,31 @@ Haskell's type system serves you. The type systems of other statically-typed lan
 
 ## Some Common Basic Types
 
+Here are more common basic types:
+
+* `Char` - unicode character
+* `Bool` - true/false value
+* `Int` - signed, 32/64-bit long int
+* `Integer` - unbounded signed integer
+* `Double` - 64-bit floating-point value. `Float`s are unoptimized, don't use
+  them.
+
+*Notation expression* `(::)` explicitly defines a type. The type is inferred
+otherwise.
+
+```
+ghci> :type 'a'
+'a' :: Char
+ghci> 'a' :: Char
+'a'
+ghci> [1,2,3] :: Int
+<interactive>:1:0:
+    Couldn't match expected type 'Int' against inferred type '[a]'
+    In the expression: [1, 2, 3] :: Int
+    In the definition of 'it': it = [1, 2, 3] :: Int
+```
+
+A *type signature* is the `::` and the type after it.
 
 
 ## Function Application
