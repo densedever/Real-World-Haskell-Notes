@@ -108,6 +108,49 @@ A *type signature* is the `::` and the type after it.
 
 ## Function Application
 
+We'll now work with the data types using functions.
+
+A *function application* is the name of the function followed by its arguments without parentheses or commas:
+
+```
+ghci> odd 3
+True
+ghci> odd 6
+False
+```
+
+The compare function takes two arguments:
+
+```
+ghci> compare 2 3
+LT
+ghci> compare 3 3
+EQ
+ghci> compare 3 2
+GT
+```
+
+This syntax is simple, but takes getting used to when coming from C.
+
+Function application has higher precedence than operators, so these two expressions are the same:
+
+```
+ghci> (compare 2 3) == LT
+True
+ghci> compare 2 3 == LT
+True
+```
+
+The parentheses don't do harm, but they do add noise. They're sometimes necessary though:
+
+```
+ghci> compare (sqrt 3) (sqrt 6)
+LT
+```
+
+This applies `compare` to `sqrt 3` and `sqrt 6`, otherwise it would be like passing four arguments to `compare`.
+
+
 ## Useful Composite Data Types: Lists and Tuples
 
 ## Functions Over Lists and Tuples
