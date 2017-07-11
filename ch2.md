@@ -153,6 +153,97 @@ This applies `compare` to `sqrt 3` and `sqrt 6`, otherwise it would be like pass
 
 ## Useful Composite Data Types: Lists and Tuples
 
+Lists and tuples are constructed from other types - composite data types.
+
+A `String` is a list of `Char` values, denoted `[Char]`.
+
+`head` returns a list's first element:
+
+```
+ghci> head [1,2,3,4]
+1
+ghci> head ['a','b','c']
+'a'
+```
+
+`tail` returns all but the head:
+
+```
+ghci> tail [1,2,3,4]
+[2,3,4]
+ghci> tail [2,3,4]
+[3,4]
+ghci> tail [True,False]
+[False]
+ghci> tail "list"
+"ist"
+ghci> tail []
+*** Exception: Prelude.tail: empty list
+```
+
+We can apply `head` and `tail` to lists of different types. Applied to a `[Bool]`, it returns `Bool`, and etc.
+
+The list type can hold any type, so it's called *polymorphic.* When writing a polymorphic type, we use a *type variable* with a lowercase letter, that will eventually be replaced by a real type.
+
+"List of `a`" is `[a]`, meaning "list of whatever type."
+
+*Note: The reason a type name must start with a capital letter is to distinguish it from a type variable.*
+
+Just like `[Int]` is a list of `Int`s, a `[[Int]]` is a list of `[Int]`.
+
+```
+ghci> :type [[True],[False,False]]
+[[True],[False,False]] :: [[Bool]]
+```
+
+This is a list of lists of `Bool`.
+
+*Note: in imperative languages, looping is done iteratively. In Haskell it's done by recursing over a list. We use data to structure our program and control flow instead of jumping/branching structures.*
+
+A tuple is a fixed-size value collection that can have any mixture of types in it, different from a list that can be any length, but can only have one type in it.
+
+If we want to store a book's title and year of publication in one data structure, we'd use a tuple because a list can't have both an Int and a String in it.
+
+```
+ghci> (1964, "Labyrinths")
+(1964,"Labyrinths")
+```
+
+We write tuples and their types inside parentheses and separated by commas:
+
+```
+ghci> :type (True, "hello")
+(True, "hello") :: (Bool, [Char])
+ghci> (4, ['a', 'm'], (16, True))
+(4,"am",(16,True))
+```
+
+The value `()` is a special empty value similar to C's `void` called "unit".
+
+Haskell doesn't have 1-element tuples, and tuples of more than one element are called n-tuples. You rarely see long tuples having more than a handful of elements.
+
+Tuples are ordered, so two tuples with the same data in different orders are different types.
+
+```
+ghci> :type (False, 'a')
+(False, 'a') :: (Bool, Char)
+ghci> :type ('a', False)
+('a', False) :: (Char, Bool)
+```
+
+`(Bool, Char)` ≠ `('a', False)`, even though the data is the same.
+
+```
+ghci> :type (False, 'a', 'b')
+(False, 'a', 'b') :: (Bool, Char, Char)
+```
+
+`(Bool, Char, Char)` is distinct from `(Bool, Char)` because the number of elements isn't the same.
+
+Tuples can be used to return multiple values from a function or as a basic
+container when we don't want to make a custom type.
+
+
 ## Functions Over Lists and Tuples
 
 ### Passing an expression to a Function
